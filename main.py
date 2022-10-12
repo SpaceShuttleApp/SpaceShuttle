@@ -27,7 +27,8 @@ async def dashboard(request: fastapi.Request):
 
 @app.patch("/state")
 def image_state(id: str, public: bool):
-    return {"Hello, World!": public}
+    cdn.update({"public": public}, id)
+    return {"id": id, "state": public}
 
 
 @app.post("/upload")
@@ -42,7 +43,8 @@ def upload_image(
     )
     images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
     return {
-        "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}"
+        "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
+        "id": name["key"],
     }
 
 
