@@ -1,4 +1,3 @@
-import uvicorn
 import fastapi
 from deta import Base, Drive
 from fastapi.staticfiles import StaticFiles
@@ -25,10 +24,27 @@ async def dashboard(request: fastapi.Request):
     return {"Hello, World!"}
 
 
+@app.get("/image")
+async def image_upload_page(request: fastapi.Request):
+    return {"Hello, World!"}
+
+
+@app.get("/all")
+def image_all():
+    res = cdn.fetch()
+    all_items = res.items
+
+    while res.last:
+        res = cdn.fetch(last=res.last)
+        all_items += res.items
+
+    return {"data": all_items}
+
+
 @app.patch("/state")
-def image_state(id: str, public: bool):
-    cdn.update({"public": public}, id)
-    return {"id": id, "state": public}
+def image_state(id: str, visibility: bool):
+    cdn.update({"visibility": visibility}, id)
+    return {"id": id, "visibility": visibility}
 
 
 @app.post("/upload")
@@ -39,13 +55,23 @@ def upload_image(
     image: fastapi.UploadFile = fastapi.File(...),
 ):
     name = cdn.put(
-        {"public": False, "embed": [{"title": embed_title, "colour": embed_colour_hex}]}
+        {
+            "visibility": False,
+            "ext": image.filename.split(".")[1],
+            "embed": [{"title": embed_title, "colour": embed_colour_hex}],
+        }
     )
     images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
     return {
         "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
         "id": name["key"],
     }
+
+
+@app.get("/info/{id}")
+def image_info(id: str):
+    info = cdn.get(id)
+    return info
 
 
 @app.get("/cdn/{image}")
