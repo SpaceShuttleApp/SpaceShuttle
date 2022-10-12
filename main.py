@@ -1,14 +1,18 @@
 import uvicorn
 import fastapi
-from deta import Drive
+from deta import Base, Drive
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 
-# files = Drive("images")
+cdn = Base("cdn")
+images = Drive("images")
+
 app = fastapi.FastAPI()
 pages = Jinja2Templates(directory="static")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
+app.mount("/styles", StaticFiles(directory="styles"), name="styles")
+app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 
 @app.get("/")
@@ -21,18 +25,21 @@ async def dashboard(request: fastapi.Request):
     return {"Hello, World!"}
 
 
-''' 
 @app.post("/upload")
 def upload_file(
     request: fastapi.Request,
-    file: fastapi.UploadFile = fastapi.File(...),
+    embed_title: str,
+    embed_colour_hex: str,
+    image: fastapi.UploadFile = fastapi.File(...),
 ):
-    name = files.put(file.filename.replace(" ", "_"), file.file)
+    name = cdn.put({"embed": [{"title": embed_title, "colour": embed_colour_hex}]})
+    images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
     return {
-        "file": f"{request.url.scheme}://{request.url.hostname}/{name}",
+        "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}"
     }
 
 
+''' 
 @app.get("/{name}")
 def cdn(name: str):
     img = files.get(name)
