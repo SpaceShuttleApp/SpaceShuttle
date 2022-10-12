@@ -48,31 +48,24 @@ def upload_image(
     }
 
 
-''' 
-@app.get("/{name}")
-def cdn(name: str):
-    img = files.get(name)
-    ext = name.split(".")[1]
+@app.get("/cdn/{image}")
+def image_cdn(image: str):
+    img = images.get(image)
     return fastapi.responses.StreamingResponse(
-        img.iter_chunks(), media_type=f"image/{ext}"
+        img.iter_chunks(), media_type=f"image/{image.split('.')[1]}"
     )
 
 
-@app.get("/embed/{name}")
-def cdn_embed(request: fastapi.Request, name: str):
+@app.get("/embed/{image}")
+def image_cdn_embed(request: fastapi.Request, image: str):
+    embed = cdn.get(image.split(".")[0])
     return fastapi.responses.HTMLResponse(
         f"""
         <meta name="twitter:card" content="summary_large_image">
-        <meta property="og:title" content="{name}"/>
+        <meta property="og:title" content="{embed["embed"][0]["title"]}"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:image" content="{request.url.scheme}://{request.url.hostname}/{name}"/>
-        <meta property="og:url" content="{request.url.scheme}://{request.url.hostname}/"/>
-        <meta name="url" content="{request.url.scheme}://{request.url.hostname}/">
-        <meta name="theme-color" content="#9ECFC2">
-        <img alt="image" src="{request.url.scheme}://{request.url.hostname}/{name}">
+        <meta property="og:image" content="{request.url.scheme}://{request.url.hostname}/cdn/{image}"/>
+        <meta name="theme-color" content="{embed["embed"][0]["colour"]}">
+        <img alt="image" src="{request.url.scheme}://{request.url.hostname}/cdn/{image}">
         """
     )
-'''
-
-if __name__ == "__main__":
-    uvicorn.run(app)
