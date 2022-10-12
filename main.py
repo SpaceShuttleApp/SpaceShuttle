@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 
-cdn = Base("cdn")
+cdn = Base("images")
 images = Drive("images")
 
 app = fastapi.FastAPI()
@@ -25,14 +25,21 @@ async def dashboard(request: fastapi.Request):
     return {"Hello, World!"}
 
 
+@app.patch("/state")
+def image_state(id: str, public: bool):
+    return {"Hello, World!": public}
+
+
 @app.post("/upload")
-def upload_file(
+def upload_image(
     request: fastapi.Request,
     embed_title: str,
     embed_colour_hex: str,
     image: fastapi.UploadFile = fastapi.File(...),
 ):
-    name = cdn.put({"embed": [{"title": embed_title, "colour": embed_colour_hex}]})
+    name = cdn.put(
+        {"public": False, "embed": [{"title": embed_title, "colour": embed_colour_hex}]}
+    )
     images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
     return {
         "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}"
