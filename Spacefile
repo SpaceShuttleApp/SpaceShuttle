@@ -1,0 +1,7 @@
+v: 1
+icon: ./assets/icon.png
+micros:
+- name: spacecdn
+  src: .
+  engine: python3.9
+  primary: true

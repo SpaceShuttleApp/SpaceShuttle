@@ -1,0 +1,29 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    color: black;
+    background: #FDF9F7;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+.button {
+    color: black;
+    background-color: #E9E4DE;
+    text-decoration: none;
+    border: 1px solid #E9E4DE;
+    padding: 4px 24px;
+    border-radius: 10px;
+    transition: .4s linear;
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 0 0 2px #F8F4F2;
+  }
+
+.button:hover {
+    transform: scale(1.06);
+    color: #EF39A9;
+}

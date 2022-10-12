@@ -1,0 +1,5 @@
+python-multipart
+fastapi
+uvicorn
+jinja2
+deta
