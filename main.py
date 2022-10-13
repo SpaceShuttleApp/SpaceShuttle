@@ -78,16 +78,8 @@ async def upload_image(
             "embed": [{"title": embed_title, "colour": embed_colour_hex}],
         }
     )
-<<<<<<< HEAD
     uri = f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{extension}"
     return {"image": uri, "id": name["key"]}
-=======
-    images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
-    return {
-        "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
-        "id": name["key"],
-    }
->>>>>>> 99f0a4d2515cd9b8b39e65b7389916415f3d1e89
 
 
 @app.delete("/delete")
