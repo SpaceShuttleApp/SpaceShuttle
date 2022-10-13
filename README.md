@@ -9,7 +9,7 @@ Your personal image cloud
 ### Links
 
 - [Website](https://spaceshuttle.deta.dev/)
-- [Install](https://alpha.deta.space/discovery/spaceshuttle-sbm-v0.1.0)
+- [Install](https://spaceshuttle.deta.dev/install)
 
 ## Special Thanks
 - [jnsougata](https://github.com/jnsougata) for helping me with the image uploading and teaching me html layouts
