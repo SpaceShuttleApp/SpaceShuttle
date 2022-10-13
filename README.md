@@ -2,11 +2,11 @@
 Your personal image cloud
 
 
-#### Dashboard
+### Dashboard
 
 ![dashboard](https://sleep.deta.dev/cdn/space_shuttle_shdashboard.png)
 
-#### Links
+### Links
 
 - [Website](https://spaceshuttle.deta.dev/)
 - [Install](https://alpha.deta.space/discovery/spaceshuttle-sbm-v0.1.0)
