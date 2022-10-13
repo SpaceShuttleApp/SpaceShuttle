@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpaceCdn</title>
+    <link rel="icon" href="/assets/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+
+<body>
+    <div class="container" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+        <button id="upload">
+            <img id="placeholder" src="/assets/upload.png" height="200" width="200">
+            <input type="file" id="files" hidden accept="image/*">
+        </button>
+        <div class="text">
+            <code id="prompt">Drop - Paste - Upload</code>
+        </div>
+        <div class="matrix" id="matrix">
+            <input type="text" id="url" readonly>
+            <button id="copy">
+                <img src="/assets/copy.png" height="20" width="20">
+            </button>
+        </div>
+    </div>
+    <script>
+        let button = document.getElementById("upload");
+        let hiddenInput = document.getElementById("files");
+        let image = document.getElementById("placeholder");
+        let copyButtom = document.getElementById("copy");
+        let matrix = document.getElementById("matrix");
+
+
+        function handleFile(file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function () {
+                button.disabled = true;
+                image.src = reader.result;
+                let data = { "data": reader.result }
+                fetch(`/upload?image=${file.name}`, { method: "POST", body: JSON.stringify(data) })
+                    .then(response => response.json())
+                    .then(json_resp => {
+                        let resolved = window.location.href + json_resp.hash;
+                        let urlView = document.getElementById("url");
+                        urlView.value = resolved;
+                        matrix.style.display = "flex";
+                    })
+            }
+        }
+
+        button.addEventListener("click", function () {
+            hiddenInput.click();
+        });
+
+        hiddenInput.addEventListener("change", function () {
+            let file = hiddenInput.files[0]
+            if (file) {
+                handleFile(file);
+            }
+        })
+
+        copyButtom.addEventListener("click", function () {
+            navigator.clipboard.writeText(document.getElementById("url").value);
+            let prompt = document.getElementById("prompt");
+            prompt.innerHTML = "URL copied to clipboard!";
+            setTimeout(function () {
+                prompt.innerHTML = "Drop - Paste - Upload";
+                matrix.style.display = "none";
+                image.src = "/assets/upload.png";
+                image.style.width = "200px";
+                image.style.height = "200px";
+                button.disabled = false;
+            }, 1000);
+        });
+
+        // file drop callback
+        function dropHandler(ev) {
+            ev.preventDefault();
+            if (ev.dataTransfer.items) {
+                let file = ev.dataTransfer.items[0].getAsFile();
+                if (file.type.startsWith("image/")) {
+                    handleFile(file);
+                }
+            }
+        }
+
+        // overrided default file drop event
+        function dragOverHandler(ev) {
+            ev.preventDefault();
+        }
+
+        // detect file paste
+        document.addEventListener("paste", function (e) {
+            let file = e.clipboardData.files[0];
+            if (file && file.type.startsWith("image/")) {
+                handleFile(file);
+            }
+        });
+    </script>
+</body>
+
+</html>

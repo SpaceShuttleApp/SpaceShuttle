@@ -121,5 +121,81 @@ body {
 
 hr {
 	border: 0;
-	border-top: 1px solid #094CFA;
+	border-top: 1px solid white;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container > .text {
+    color: var(--gray-900) !important;
+    font-size: 0.9rem;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    width: 212px;
+    height: auto;
+    border: 2px solid var(--surface3) !important;
+    background-color: var(--element1) !important;
+}
+
+.container > button {
+    background-color: var(--element1);
+    border: none;
+    color: #fff;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    border: 2px solid var(--element1) !important;
+}
+
+.container > button > img {
+    border-radius: 5px;
+    object-fit: contain;
+}
+
+.container > button:hover {
+    background-color: var(--pink-light);
+}
+
+.container > .matrix {
+    width: fit-content;
+    background-color: #17355f;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    margin-top: 20px;
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container > .matrix > button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.container > .matrix > input[type="text"] {
+    background-color: transparent;
+    font-size: 15px;
+    border: none;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    outline: none;
+    margin: 5px;
+    
+}  
