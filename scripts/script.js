@@ -10,8 +10,7 @@ function toggleColorMode() {
   const colorToggleButton = document.getElementById("color-mode-toggle");
   colorToggleButton.addEventListener("click", toggleColorMode);
   // Initialize the color mode.
-  const colorSchemeQueryList = window.matchMedia("(prefers-color-scheme: light)");
+  const colorSchemeQueryList = window.matchMedia("(prefers-color-scheme: dark)");
   if (colorSchemeQueryList.matches) {
-    setColorMode("light");
+    setColorMode("dark");
 }
-
