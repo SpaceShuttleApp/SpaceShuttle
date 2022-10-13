@@ -1,5 +1,6 @@
 # SpaceShuttle
-App for deta Space
+Your personal image cloud
+
 
 ## Dashboard
 
