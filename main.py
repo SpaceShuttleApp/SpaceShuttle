@@ -24,7 +24,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 @app.get("/")
 async def home(request: fastapi.Request):
-    return ContentResponse("./static/index.html", media_type="text/html")
+    return ContentResponse("./static/home.html", media_type="text/html")
 
 
 # to deliver static files withouth caching
