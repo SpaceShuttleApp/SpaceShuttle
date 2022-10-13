@@ -22,32 +22,24 @@
             <code id="prompt">Drop - Paste - Upload</code>
         </div>
         <div class="matrix" id="matrix">
-            <button id="view_img">view</button>
+            <button class="button" style="border: 2px solid transparent;" id="view_img">view</button>
+            <button class="/dashboard" style="border: 2px solid transparent;">Dashboard</button>
         </div>
     </div>
     <script>
-        let button = document.getElementById("upload");
-        let hiddenInput = document.getElementById("files");
-        let image = document.getElementById("placeholder");
-        let viewButtom = document.getElementById("view_img");
-        let matrix = document.getElementById("matrix");
-        let context_image_id = null;
-
-        function handleFile(file) {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = function () {
-                button.disabled = true;
-                image.src = reader.result;
-                let data = { content: reader.result, filename: file.name };
-                fetch(`/upload`, { method: "POST", body: JSON.stringify(data) })
-                .then(response => response.json())
-                .then(resp => {
-                    context_image_id = resp.id;
-                    matrix.style.display = "flex";
-                })
-            }
-        }
+        let button = document.getElementById(" upload"); let hiddenInput = document.getElementById("files"); let
+            image = document.getElementById("placeholder"); let viewButtom = document.getElementById("view_img"); let
+                matrix = document.getElementById("matrix"); let context_image_id = null; function handleFile(file) {
+                    let
+                        reader = new FileReader(); reader.readAsDataURL(file); reader.onloadend = function () {
+                            button.disabled = true; image.src = reader.result; let data = { content: reader.result, filename: file.name };
+                            fetch(`/upload`, { method: "POST", body: JSON.stringify(data) }).then(response => response.json())
+                                .then(resp => {
+                                    context_image_id = resp.id;
+                                    matrix.style.display = "flex";
+                                })
+                        }
+                }
         button.addEventListener("click", function () {
             hiddenInput.click();
         });
