@@ -73,8 +73,8 @@ async def upload_image(
     images.put(f"{name['key']}.{extension}", codecs.decode(image_data, "base64"))
     name = cdn.put(
         {
+            "ext": extension,
             "visibility": False,
-            "ext": filename.split(".")[1],
             "embed": [{"title": embed_title, "colour": embed_colour_hex}],
         }
     )
