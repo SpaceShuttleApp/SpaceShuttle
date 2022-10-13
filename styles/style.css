@@ -166,7 +166,7 @@ hr {
 
 .container > .matrix {
     width: fit-content;
-    background-color: #17355f;
+    background-color: transparent;
     transition: all 0.3s ease;
     border-radius: 15px;
     margin-top: 20px;
