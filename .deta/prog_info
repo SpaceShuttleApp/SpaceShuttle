@@ -1,1 +1,0 @@
-{"id":"53308105-1230-4de4-ad4c-f4f99519296b","space":11415,"runtime":"python3.9","name":"spacecdn","path":"tu4og5","project":"a0pd75un","account":"144798365827","region":"eu-central-1","deps":["python-multipart","fastapi","uvicorn","jinja2","deta"],"envs":null,"public":true,"log_level":"debug","cron":""}

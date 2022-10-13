@@ -176,26 +176,12 @@ hr {
 }
 
 .container > .matrix > button {
-    background-color: transparent;
+    background-color: var(--pink-dark);
     border: none;
-    color: black;
-    padding: 10px;
+    color: white;
+    padding: 10px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 15px;
+    border-radius: 10px;
     margin: 5px;
 }
-
-.container > .matrix > input[type="text"] {
-    background-color: transparent;
-    font-size: 15px;
-    border: none;
-    color: black;
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 15px;
-    outline: none;
-    margin: 5px;
-    
-}  

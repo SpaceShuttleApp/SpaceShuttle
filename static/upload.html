@@ -22,18 +22,16 @@
             <code id="prompt">Drop - Paste - Upload</code>
         </div>
         <div class="matrix" id="matrix">
-            <input type="text" id="url" readonly>
-            <button id="copy">
-                <img src="/assets/copy.png" height="20" width="20">
-            </button>
+            <button id="view_img">view</button>
         </div>
     </div>
     <script>
         let button = document.getElementById("upload");
         let hiddenInput = document.getElementById("files");
         let image = document.getElementById("placeholder");
-        let copyButtom = document.getElementById("copy");
+        let viewButtom = document.getElementById("view_img");
         let matrix = document.getElementById("matrix");
+        let context_image_id = null;
 
         function handleFile(file) {
             let reader = new FileReader();
@@ -46,6 +44,7 @@
                 .then(response => response.json())
                 .then(resp => {
                     document.getElementById("url").value = resp.image;
+                    context_image_id = resp.id;
                     matrix.style.display = "flex";
                 })
             }
@@ -61,18 +60,8 @@
             }
         });
 
-        copyButtom.addEventListener("click", function () {
-            navigator.clipboard.writeText(document.getElementById("url").value);
-            let prompt = document.getElementById("prompt");
-            prompt.innerHTML = "URL copied to clipboard!";
-            setTimeout(function () {
-                prompt.innerHTML = "Drop - Paste - Upload";
-                matrix.style.display = "none";
-                image.src = "/assets/upload.png";
-                image.style.width = "200px";
-                image.style.height = "200px";
-                button.disabled = false;
-            }, 1000);
+        viewButtom.addEventListener("click", function () {
+            window.location.href = `/info/${context_image_id}`;
         });
 
         // file drop callback
