@@ -13,17 +13,22 @@
 </head>
 
 <body>
-    <div class="container" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
-        <button id="upload">
-            <img id="placeholder" src="/assets/upload.png" height="200" width="200">
-            <input type="file" id="files" hidden accept="image/*">
-        </button>
-        <div class="text">
-            <code id="prompt">Drop - Paste - Upload</code>
+    <div class="main-container">
+        <div class="header-container">
+            <h1>Upload Images</h1>
+            <a href="/dashboard" class="button">Back</a>
         </div>
-        <div class="matrix" id="matrix">
-            <button class="button" style="border: 2px solid transparent;" id="view_img">view</button>
-            <button class="/dashboard" style="border: 2px solid transparent;">Dashboard</button>
+        <div class="container" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+            <button id="upload">
+                <img id="placeholder" src="/assets/upload.png" height="200" width="200">
+                <input type="file" id="files" hidden accept="image/*">
+            </button>
+            <div class="text">
+                <code id="prompt">Drop - Paste - Upload</code>
+            </div>
+            <div class="matrix" id="matrix">
+                <button class="button" style="border: 2px solid transparent;" id="view_img">View</button>
+            </div>
         </div>
     </div>
     <script>
