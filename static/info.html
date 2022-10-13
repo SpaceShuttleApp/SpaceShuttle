@@ -15,10 +15,10 @@
 <body>
     <div class="main-container">
         <div class="header-container">
-            <h1 class="main-title" style="color: black;">Image.png</h1>
-            <a href="dashboard" class="button">Back</a>
+            <h1 class="main-title" style="color: black;">{{ data["key"] }}.{{ data["ext"] }}</h1>
+            <a href="/dashboard" class="button">Back</a>
         </div>
-
+        <img src="/cdn/{{ data['key'] }}.{{ data['ext'] }}">
     </div>
 </body>
 

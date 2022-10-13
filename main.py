@@ -1,6 +1,5 @@
 import fastapi
 from deta import Base, Drive
-from fastapi.requests import Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
@@ -74,7 +73,6 @@ def upload_image(
             "embed": [{"title": embed_title, "colour": embed_colour_hex}],
         }
     )
-    data = 
     images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
     return {
         "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
@@ -91,9 +89,12 @@ def delete_image(id: str):
 
 
 @app.get("/info/{id}")
-def image_info(id: str):
+def image_info(request: fastapi.Request, id: str):
     info = cdn.get(id)
-    return info
+    return pages.TemplateResponse(
+        "info.html",
+        {"request": request, "data": info},
+    )
 
 
 @app.get("/cdn/{image}")
