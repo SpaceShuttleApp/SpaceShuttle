@@ -11,7 +11,7 @@ from models import Image
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
-pages = Jinja2Templates(directory="static")
+pages = Jinja2Templates(directory="templates")
 cdn = Base("images")
 images = Drive("images")
 
