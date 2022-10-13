@@ -62,7 +62,7 @@ def image_state(id: str, visibility: bool):
 
 @app.post("/upload")
 async def upload_image(
-    request: Request,
+    request: fastapi.Request,
     embed_title: str = None, #  your task
     embed_colour_hex: str = None, #  your task
 ):
@@ -70,7 +70,6 @@ async def upload_image(
     filename = data["filename"]
     extension = filename.split(".")[-1]
     image_data = data["content"].split(",")[1].encode("utf-8")
-    images.put(f"{name['key']}.{extension}", codecs.decode(image_data, "base64"))
     name = cdn.put(
         {
             "ext": extension,
@@ -78,6 +77,7 @@ async def upload_image(
             "embed": [{"title": embed_title, "colour": embed_colour_hex}],
         }
     )
+    images.put(f"{name['key']}.{extension}", codecs.decode(image_data, "base64"))
     uri = f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{extension}"
     return {"image": uri, "id": name["key"]}
 
