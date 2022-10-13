@@ -12,6 +12,7 @@ pages = Jinja2Templates(directory="static")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 app.mount("/styles", StaticFiles(directory="styles"), name="styles")
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+app.mount("/scripts", StaticFiles(directory="scripts"), name="scripts")
 
 
 @app.get("/")
@@ -21,7 +22,17 @@ async def home(request: fastapi.Request):
 
 @app.get("/dashboard")
 async def dashboard(request: fastapi.Request):
-    return {"Hello, World!"}
+    res = cdn.fetch()
+    all_items = res.items
+
+    while res.last:
+        res = cdn.fetch(last=res.last)
+        all_items += res.items
+
+    return pages.TemplateResponse(
+        "dashboard.html",
+        {"request": request, "items": all_items},
+    )
 
 
 @app.get("/image")
@@ -66,6 +77,14 @@ def upload_image(
         "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
         "id": name["key"],
     }
+
+
+@app.delete("/delete")
+def delete_image(id: str):
+    data = cdn.get(id)
+    images.delete(f"{data['key']}.{data['ext']}")
+    cdn.delete(id)
+    return {"id": id}
 
 
 @app.get("/info/{id}")

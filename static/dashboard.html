@@ -15,18 +15,20 @@
 <body>
     <div class="main-container">
         <div class="header-container">
-            <h1 class="main-title">Your Images</h1>
-            <a href="image" class="main-button">+</a>
+            <h1>Your Images</h1>
+            <a href="image" class="button">+</a>
+            <a id="color-mode-toggle" class="button">🌙</a>
         </div>
+        {% for item in items %}
         <div class="card-container">
-            <div class="wrapper-left">
-                <h2 class="card-name">q35afas.png</h2>
+            <div class="card-details">
+                <span>{{ item["key"] }}.{{ item["ext"] }}</span>
+                <a href="/info/{{ item['key'] }}" class="button">View</a>
             </div>
-            <div class="wrapper-right">
-                <img class="card-image" src="https://pbs.twimg.com/media/Dys_ovoXcAERzFA.jpg:large" alt="preview">
-            </div>
+            <img class="card-image" src="/cdn/{{ item['key'] }}.{{ item['ext'] }}">
         </div>
+        <hr>
+        {% endfor %}
     </div>
+    <script src="/scripts/script.js"></script>
 </body>
-
-</html>
