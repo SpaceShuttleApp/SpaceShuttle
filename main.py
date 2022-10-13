@@ -35,6 +35,20 @@ async def dashboard(request: Request):
     return pages.TemplateResponse("dashboard.html", {"request": request, "items": items["data"]})
 
 
+@app.get("/image", response_class=HTMLResponse)
+async def image_upload_page(request: Request):
+    return pages.TemplateResponse("upload.html", {"request": request})
+
+
+@app.get("/info/{id}", response_class=HTMLResponse)
+async def image_info(request: Request, id: str):
+    info = cdn.get(id)
+    return pages.TemplateResponse(
+        "info.html",
+        {"request": request, "data": info},
+    )
+
+
 # to deliver static files without caching
 # (Done by jnsougata... smh -- LemonPi314)
 @app.get("/assets/{name}")
@@ -50,11 +64,6 @@ async def scripts(name: str):
 @app.get("/styles/{name}")
 async def styles(name: str):
     return NoCacheFileResponse(f"./styles/{name}")
-
-
-@app.get("/image", response_class=HTMLResponse)
-async def image_upload_page(request: Request):
-    return pages.TemplateResponse("upload.html", {"request": request})
 
 
 @app.get("/all")
@@ -99,15 +108,6 @@ async def image_delete(id: str):
     images.delete(f"{data['key']}.{data['ext']}")
     cdn.delete(id)
     return {"id": id}
-
-
-@app.get("/info/{id}", response_class=HTMLResponse)
-async def image_info(request: Request, id: str):
-    info = cdn.get(id)
-    return pages.TemplateResponse(
-        "info.html",
-        {"request": request, "data": info},
-    )
 
 
 @app.get("/cdn/{image}")
