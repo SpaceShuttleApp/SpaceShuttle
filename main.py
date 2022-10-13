@@ -4,22 +4,41 @@ from deta import Base, Drive
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 
 
 cdn = Base("images")
 images = Drive("images")
 
+
+class ContentResponse(Response):
+    def __init__(self, path: str, **kwargs):
+        with open(path, "rb") as f:
+            content = f.read()
+            super().__init__(content=content, **kwargs)
+
 app = fastapi.FastAPI()
 pages = Jinja2Templates(directory="static")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
-app.mount("/styles", StaticFiles(directory="styles"), name="styles")
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")
-app.mount("/scripts", StaticFiles(directory="scripts"), name="scripts")
 
 
 @app.get("/")
 async def home(request: fastapi.Request):
-    return pages.TemplateResponse("home.html", {"request": request})
+    return ContentResponse("./static/index.html", media_type="text/html")
+
+
+# to deliver static files withouth caching
+@app.get("/assets/{name}")
+async def file(name: str):
+    return ContentResponse(f"./assets/{name}", media_type="application/octet-stream")
+
+@app.get("/scripts/{name}")
+async def file(name: str):
+    return ContentResponse(f"./scripts/{name}", media_type="text/javascript")
+
+@app.get("/styles/{name}")
+async def file(name: str):
+    return ContentResponse(f"./styles/{name}", media_type="text/css")
 
 
 @app.get("/dashboard")
@@ -31,10 +50,7 @@ async def dashboard(request: fastapi.Request):
         res = cdn.fetch(last=res.last)
         all_items += res.items
 
-    return pages.TemplateResponse(
-        "dashboard.html",
-        {"request": request, "items": all_items},
-    )
+    return pages.TemplateResponse("dashboard.html", {"request": request, "items": all_items})
 
 
 @app.get("/image")

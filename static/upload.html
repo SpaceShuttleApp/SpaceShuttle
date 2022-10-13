@@ -1,98 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SpaceShuttle</title>
-    <link rel="icon" href="/assets/icon.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" type="text/css" href="/styles/style.css">
-</head>
-
-<body>
-    <div class="main-container">
-        <div class="header-container">
-            <h1>Upload Images</h1>
-            <a href="/dashboard" class="button">Back</a>
-        </div>
-        <div class="container" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
-            <button id="upload">
-                <img id="placeholder" src="/assets/upload.png" height="400" width="400">
-                <input type="file" id="files" hidden accept="image/*">
-            </button>
-            <div class="text">
-                <code id="prompt">Drop - Paste - Upload</code>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SpaceShuttle</title>
+        <link rel="icon" href="/assets/icon.png" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    </head>
+    <body>
+        <div class="main-container">
+            <div class="header-container">
+                <h1>Upload Images</h1>
+                <a href="/dashboard" class="button">Back</a>
             </div>
-            <div class="matrix" id="matrix">
-                <button class="button" id="view_img">View</button>
+            <div class="container" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                <button id="upload">
+                    <img id="placeholder" src="/assets/upload.png" height="400" width="400">
+                    <input type="file" id="files" hidden accept="image/*">
+                </button>
+                <div class="text">
+                    <code id="prompt">Drop - Paste - Upload</code>
+                </div>
+                <div class="matrix" id="matrix">
+                    <button class="button" id="view_img">View</button>
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-        let button = document.getElementById("upload");
-        let hiddenInput = document.getElementById("files");
-        let image = document.getElementById("placeholder");
-        let viewButtom = document.getElementById("view_img");
-        let matrix = document.getElementById("matrix");
-        let context_image_id = null;
-
-        function handleFile(file) {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = function () {
-                button.disabled = true;
-                image.src = reader.result;
-                let data = { content: reader.result, filename: file.name };
-                fetch(`/upload`, { method: "POST", body: JSON.stringify(data) })
-                    .then(response => response.json())
-                    .then(resp => {
-                        context_image_id = resp.id;
-                        matrix.style.display = "flex";
-                    })
-            }
-        }
-        button.addEventListener("click", function () {
-            hiddenInput.click();
-        });
-
-        hiddenInput.addEventListener("change", function () {
-            let file = hiddenInput.files[0]
-            if (file) {
-                handleFile(file);
-            }
-        });
-
-        viewButtom.addEventListener("click", function () {
-            window.location.href = `/info/${context_image_id}`;
-        });
-
-        // file drop callback
-        function dropHandler(ev) {
-            ev.preventDefault();
-            if (ev.dataTransfer.items) {
-                let file = ev.dataTransfer.items[0].getAsFile();
-                if (file.type.startsWith("image/")) {
-                    handleFile(file);
-                }
-            }
-        }
-
-        // overrided default file drop event
-        function dragOverHandler(ev) {
-            ev.preventDefault();
-        }
-
-        // detect file paste
-        document.addEventListener("paste", function (e) {
-            let file = e.clipboardData.files[0];
-            if (file && file.type.startsWith("image/")) {
-                handleFile(file);
-            }
-        });
-    </script>
-</body>
-
+        <script src="/scripts/upload.js"></script>
+    </body>
 </html>

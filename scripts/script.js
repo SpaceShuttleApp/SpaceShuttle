@@ -14,3 +14,4 @@ function toggleColorMode() {
   if (colorSchemeQueryList.matches) {
     setColorMode("light");
 }
+
