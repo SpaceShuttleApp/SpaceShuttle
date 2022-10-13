@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>SpaceShuttle</title>
-        <link rel="icon" href="/assets/icon.png" type="image/x-icon">
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="stylesheet" type="text/css" href="/styles/style.css">
-    </head>
-    <body>
-        <div class="main-container">
-            <div class="header-container">
-                <h1>{{ data["key"] }}.{{ data["ext"] }}</h1>
-                <a href="/dashboard" class="button">Back</a>
-                <a id="color-mode-toggle" class="button">🌙</a>
-            </div>
-            <img src="/cdn/{{ data['key'] }}.{{ data['ext'] }}">
-            <div class="soon">
-                <h1>Coming Soon™️</h1>
-                <h2>Embed Builder</h2>
-            </div>
-            <div class="footer-container">
-                <button id="download" class="button"">
-                <img src=" /assets/download.png" height="20" width="20">
-                </button>
-                <button id="delete" class="button">
-                    <img src="/assets/trash.png" height="20" width="20">
-                </button>
-            </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpaceShuttle</title>
+    <link rel="icon" href="/assets/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="header-container">
+            <h1>{{ data["key"] }}.{{ data["ext"] }}</h1>
+            <a href="/dashboard" class="button">Back</a>
+            <a id="color-mode-toggle" class="button">🌙</a>
         </div>
-        <script src="/scripts/script.js"></script>
-        <script src="/scripts/info.js"></script>
-    </body>
+        <img src="/cdn/{{ data['key'] }}.{{ data['ext'] }}">
+        <div class="soon">
+            <h1>Coming Soon™️</h1>
+            <h2>Embed Builder</h2>
+        </div>
+        <div class="footer-container">
+            <button id="delete" class="button">
+                <img src="/assets/trash.png" height="20" width="20">
+            </button>
+        </div>
+    </div>
+    <script src="/scripts/script.js"></script>
+    <script src="/scripts/info.js"></script>
+</body>
+
 </html>
