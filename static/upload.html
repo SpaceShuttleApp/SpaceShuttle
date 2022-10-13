@@ -43,7 +43,6 @@
                 fetch(`/upload`, { method: "POST", body: JSON.stringify(data) })
                 .then(response => response.json())
                 .then(resp => {
-                    document.getElementById("url").value = resp.image;
                     context_image_id = resp.id;
                     matrix.style.display = "flex";
                 })
