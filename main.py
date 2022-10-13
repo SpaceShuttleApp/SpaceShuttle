@@ -1,4 +1,5 @@
 import fastapi
+import codecs
 from deta import Base, Drive
 from fastapi.requests import Request
 from fastapi.staticfiles import StaticFiles
@@ -61,25 +62,25 @@ def image_state(id: str, visibility: bool):
 
 
 @app.post("/upload")
-def upload_image(
-    request: fastapi.Request,
-    embed_title: str = None,
-    embed_colour_hex: str = None,
-    image: fastapi.UploadFile = fastapi.File(...),
+async def upload_image(
+    request: Request,
+    embed_title: str = None, #  your task
+    embed_colour_hex: str = None, #  your task
 ):
+    data = await request.json()
+    filename = data["filename"]
+    extension = filename.split(".")[-1]
+    image_data = data["content"].split(",")[1].encode("utf-8")
+    images.put(f"{name['key']}.{extension}", codecs.decode(image_data, "base64"))
     name = cdn.put(
         {
             "visibility": False,
-            "ext": image.filename.split(".")[1],
+            "ext": filename.split(".")[1],
             "embed": [{"title": embed_title, "colour": embed_colour_hex}],
         }
     )
-    data = 
-    images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
-    return {
-        "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
-        "id": name["key"],
-    }
+    uri = f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{extension}"
+    return {"image": uri, "id": name["key"]}
 
 
 @app.delete("/delete")

@@ -35,22 +35,19 @@
         let copyButtom = document.getElementById("copy");
         let matrix = document.getElementById("matrix");
 
-
         function handleFile(file) {
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = function () {
                 button.disabled = true;
                 image.src = reader.result;
-                let data = { "data": reader.result }
-                fetch(`/upload?image=${file.name}`, { method: "POST", body: JSON.stringify(data) })
-                    .then(response => response.json())
-                    .then(json_resp => {
-                        let resolved = window.location.href + json_resp.hash;
-                        let urlView = document.getElementById("url");
-                        urlView.value = resolved;
-                        matrix.style.display = "flex";
-                    })
+                let data = { content: reader.result, filename: file.name };
+                fetch(`/upload`, { method: "POST", body: JSON.stringify(data) })
+                .then(response => response.json())
+                .then(resp => {
+                    document.getElementById("url").value = resp.image;
+                    matrix.style.display = "flex";
+                })
             }
         }
 
@@ -63,7 +60,7 @@
             if (file) {
                 handleFile(file);
             }
-        })
+        });
 
         copyButtom.addEventListener("click", function () {
             navigator.clipboard.writeText(document.getElementById("url").value);
