@@ -23,7 +23,12 @@
         <div class="card-container">
             <div class="card-details">
                 <span>{{ item["key"] }}.{{ item["ext"] }}</span>
-                <a href="/info/{{ item['key'] }}" class="button">View</a>
+                <div class="footer-container">
+                    <a href="/info/{{ item['key'] }}" class="button">View</a>
+                    <button id="share" class="button"">
+                        <img src=" /assets/share.png" height="15" width="15">
+                    </button>
+                </div>
             </div>
             <img class="card-image" src="/cdn/{{ item['key'] }}.{{ item['ext'] }}">
         </div>

@@ -48,6 +48,15 @@ body {
     height: 60px;
 }
 
+.soon {
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: var(--surface2);
+    border: 2px solid var(--surface3) !important;
+    padding: 4px 24px;
+    text-align: center;
+}
+
 .button {
     color: var(--gray-900) !important;
     background-color: var(--gray-400) !important;
