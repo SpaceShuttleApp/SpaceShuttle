@@ -1,7 +1,6 @@
 import fastapi
 import codecs
 from deta import Base, Drive
-from fastapi.requests import Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
@@ -79,8 +78,16 @@ async def upload_image(
             "embed": [{"title": embed_title, "colour": embed_colour_hex}],
         }
     )
+<<<<<<< HEAD
     uri = f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{extension}"
     return {"image": uri, "id": name["key"]}
+=======
+    images.put(f"{name['key']}.{image.filename.split('.')[1]}", image.file)
+    return {
+        "image": f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{image.filename.split('.')[1]}",
+        "id": name["key"],
+    }
+>>>>>>> 99f0a4d2515cd9b8b39e65b7389916415f3d1e89
 
 
 @app.delete("/delete")
@@ -92,9 +99,12 @@ def delete_image(id: str):
 
 
 @app.get("/info/{id}")
-def image_info(id: str):
+def image_info(request: fastapi.Request, id: str):
     info = cdn.get(id)
-    return info
+    return pages.TemplateResponse(
+        "info.html",
+        {"request": request, "data": info},
+    )
 
 
 @app.get("/cdn/{image}")
