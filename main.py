@@ -1,5 +1,5 @@
-import fastapi
 import codecs
+import fastapi
 from deta import Base, Drive
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -54,18 +54,14 @@ def image_all():
     return {"data": all_items}
 
 
-@app.patch("/state")
-def image_state(id: str, visibility: bool):
-    cdn.update({"visibility": visibility}, id)
-    return {"id": id, "visibility": visibility}
+@app.patch("/update")
+def image_update(id: str, embed_title: str, embed_colour_hex: str):
+    cdn.update({"embed": [{"title": embed_title, "colour": embed_colour_hex}]}, id)
+    return {"id": id}
 
 
 @app.post("/upload")
-async def upload_image(
-    request: fastapi.Request,
-    embed_title: str = None, #  your task
-    embed_colour_hex: str = None, #  your task
-):
+async def upload_image(request: fastapi.Request):
     data = await request.json()
     filename = data["filename"]
     extension = filename.split(".")[-1]
@@ -73,8 +69,7 @@ async def upload_image(
     name = cdn.put(
         {
             "ext": extension,
-            "visibility": False,
-            "embed": [{"title": embed_title, "colour": embed_colour_hex}],
+            "embed": [{"title": None, "colour": None}],
         }
     )
     images.put(f"{name['key']}.{extension}", codecs.decode(image_data, "base64"))
