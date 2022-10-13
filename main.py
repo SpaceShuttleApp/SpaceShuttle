@@ -100,11 +100,6 @@ def delete_image(id: str):
     cdn.delete(id)
     return {"id": id}
 
-@app.get("/download/{filename}")
-def download_image(filename: str):
-    content = images.get(filename).read()
-    return Response(content, media_type="application/octet-stream")
-
 
 @app.get("/info/{id}")
 def image_info(request: fastapi.Request, id: str):
