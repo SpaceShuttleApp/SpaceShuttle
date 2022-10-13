@@ -78,7 +78,7 @@ async def upload_image(
         }
     )
     images.put(f"{name['key']}.{extension}", codecs.decode(image_data, "base64"))
-    uri = f"{request.url.scheme}://{request.url.hostname}/{name['key']}.{extension}"
+    uri = f"{request.url.scheme}://{request.url.hostname}/cdn/{name['key']}.{extension}"
     return {"image": uri, "id": name["key"]}
 
 
