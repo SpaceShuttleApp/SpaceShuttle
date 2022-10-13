@@ -1,40 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SpaceShuttle</title>
-    <link rel="icon" href="/assets/icon.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" type="text/css" href="/styles/style.css">
-</head>
-
-<body>
-    <div class="main-container">
-        <div class="header-container">
-            <h1>Your Images</h1>
-            <a href="image" class="button">+</a>
-            <a id="color-mode-toggle" class="button">🌙</a>
-        </div>
-        {% for item in items %}
-        <div class="card-container">
-            <div class="card-details">
-                <span id="imginfo">{{ item["key"] }}.{{ item["ext"] }}</span>
-                <div class="footer-container">
-                    <a href="/info/{{ item['key'] }}" class="button">View</a>
-                    <button id="share" class="button"">
-                        <img src=" /assets/share.png" height="15" width="15">
-                    </button>
-                </div>
-            </div>
-            <img class="card-image" src="/cdn/{{ item['key'] }}.{{ item['ext'] }}">
-        </div>
-        <hr>
-        {% endfor %}
+{% block body %}
+<div class="main-container">
+  <div class="header-container">
+    <h1>Your Images</h1>
+    <a href="image" class="button">+</a>
+    <a id="color-mode-toggle" class="button">☀️</a>
+  </div>
+  {% for item in items %}
+  <div class="card-container">
+    <div class="card-details">
+      <span id="imginfo">{{ item["key"] }}.{{ item["ext"] }}</span>
+      <div class="footer-container">
+        <a href="/info/{{ item['key'] }}" class="button">View</a>
+        <button id="share" class="button">
+          <img src=" /assets/share.png" height="15" width="15" />
+        </button>
+      </div>
     </div>
-    <script src="/scripts/script.js"></script>
-    <script src="/scripts/dash.js"></script>
-</body>
+    <img class="card-image" src="/cdn/{{ item['key'] }}.{{ item['ext'] }}" />
+  </div>
+  <hr />
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="/scripts/dash.js"></script>
+{% endblock %}

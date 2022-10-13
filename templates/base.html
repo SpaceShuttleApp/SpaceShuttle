@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+  <head>
+    {% block head %}
+    <title>SpaceShuttle</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/styles/style.css" />
+    {% endblock %}
+  </head>
+
+  <body>
+    {% block body %}
+    {% endblock %}
+  </body>
+
+  {% block scripts %}
+  <script src="/scripts/script.js"></script>
+  {% endblock %}
+</html>
