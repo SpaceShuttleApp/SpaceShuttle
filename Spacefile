@@ -1,7 +1,7 @@
 v: 1
 icon: ./assets/icon.png
 micros:
-- name: spacecdn
+- name: spaceshuttle
   src: .
   engine: python3.9
   primary: true
