@@ -49,6 +49,15 @@ async def image_info(request: Request, id: str):
     )
 
 
+@app.get("/embed/{image}")
+async def image_cdn_embed(request: Request, image: str):
+    embed = cdn.get(image.split(".")[0])
+    return pages.TemplateResponse(
+        "embed.html",
+        {"request": request, "embed": embed},
+    )
+
+
 # to deliver static files without caching
 # (Done by jnsougata... smh -- LemonPi314)
 @app.get("/assets/{name}")
@@ -116,19 +125,4 @@ async def image_cdn(image: str):
     return Response(
         img.read(),
         media_type=f"image/{image.split('.')[1]}",
-    )
-
-
-@app.get("/embed/{image}")
-async def image_cdn_embed(request: Request, image: str):
-    embed = cdn.get(image.split(".")[0])
-    return HTMLResponse(
-        f"""
-        <meta name="twitter:card" content="summary_large_image">
-        <meta property="og:title" content="{embed["embed"][0]["title"]}"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:image" content="{request.url.scheme}://{request.url.hostname}/cdn/{image}"/>
-        <meta name="theme-color" content="{embed["embed"][0]["colour"]}">
-        <img alt="image" src="{request.url.scheme}://{request.url.hostname}/cdn/{image}">
-        """
     )
