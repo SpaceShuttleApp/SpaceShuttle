@@ -4,6 +4,7 @@ from deta import Base, Drive
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, Response
+
 # from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -57,6 +58,7 @@ async def image_info(request: Request, id: str):
     )
 
 
+# For future features
 @app.get("/embed/{image}")
 async def image_cdn_embed(request: Request, image: str):
     embed = cdn.get(image.split(".")[0])
@@ -74,9 +76,17 @@ async def static(path: str):
 
 
 @app.patch("/update")
-async def image_update(id: str, embed_title: str, embed_colour_hex: str):
+async def image_update(
+    id: str,
+    embed_title: str = None,
+    embed_colour_hex: str = None,
+    visibility: bool = None,
+):
     cdn.update(
-        {"embed": [{"title": embed_title, "colour": embed_colour_hex}]},
+        {
+            "visibility": visibility,
+            "embed": [{"title": embed_title, "colour": embed_colour_hex}],
+        },
         key=id,
     )
     return {"id": id}
@@ -91,7 +101,9 @@ async def image_upload(request: Request, image: Image):
             "ext": extension,
             # Why non-US spelling? Might come as a suprise to users of the API.
             # Just the way it is, not trying to say US is superior. -- LemonPi314
-            "embed": [{"title": None, "colour": None}],
+            # Don't take the our out of colour --SlumberDemon
+            "visibility": False,  # For future features
+            "embed": [{"title": None, "colour": None}],  # For future features
         },
     )
     id = item["key"]
