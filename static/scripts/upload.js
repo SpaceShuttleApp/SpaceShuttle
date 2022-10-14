@@ -1,7 +1,7 @@
-let uploadButton = document.getElementById("upload");
+let uploadButton = document.getElementById("upload-button");
 let hiddenInput = document.getElementById("files");
 let image = document.getElementById("placeholder");
-let viewButtom = document.getElementById("view_img");
+let viewButton = document.getElementById("view-button");
 let matrix = document.getElementById("matrix");
 let contextImageId = null;
 
@@ -20,7 +20,7 @@ function handleFile(file) {
       .then((response) => response.json())
       .then((resp) => {
         contextImageId = resp.id;
-        matrix.style.display = "flex";
+        matrix.hidden = false;
       });
   };
 }
@@ -36,7 +36,7 @@ hiddenInput.addEventListener("change", () => {
   }
 });
 
-viewButtom.addEventListener("click", () => {
+viewButton.addEventListener("click", () => {
   window.location.href = `/info/${contextImageId}`;
 });
 

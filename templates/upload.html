@@ -7,15 +7,13 @@
     <a href="/" class="button">Back</a>
   </div>
   <div class="container" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-    <button id="upload">
+    <button id="upload-button" class="button">
       <img id="placeholder" src="/static/images/upload.png" height="400" width="400" />
-      <input type="file" id="files" hidden accept="image/*" />
+      <input type="file" id="files" accept="image/*" hidden />
     </button>
-    <div class="text">
-      <code id="prompt">Drop - Paste - Upload</code>
-    </div>
-    <div class="matrix" id="matrix">
-      <button class="button" id="view_img">View</button>
+    <code>Drop - Paste - Upload</code>
+    <div id="matrix" hidden>
+      <button class="button" id="view-button">View</button>
     </div>
   </div>
 </div>
