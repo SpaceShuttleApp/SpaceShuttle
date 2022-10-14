@@ -4,7 +4,9 @@
 <div class="main-container">
   <div class="header-container">
     <h1>Your Images</h1>
-    <a href="image" class="button">+</a>
+    <a href="image" class="button">
+      <i class="fa fa-plus"></i>
+    </a>
   </div>
   {% for item in items %}
   <div class="card-container">
@@ -12,9 +14,9 @@
       <span id="imginfo">{{ item["key"] }}.{{ item["ext"] }}</span>
       <div class="footer-container">
         <a href="/info/{{ item['key'] }}" class="button">View</a>
-        <button id="share" class="button">
-          <img src=" /static/images/share.png" height="15" width="15" />
-        </button>
+        <a class="button share-button">
+          <i class="fa fa-share-alt"></i>
+        </a>
       </div>
     </div>
     <img class="card-image" src="/cdn/{{ item['key'] }}.{{ item['ext'] }}" />
