@@ -1,0 +1,6 @@
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="{{ embed['embed'][0]['title'] }}" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="{{ request.url.scheme }}://{{ request.url.hostname }}/cdn/{{ image }}" />
+<meta name="theme-color" content="{{ embed['embed'][0]['colour'] }}">
+<img alt="image" src="{{ request.url.scheme }}://{{ request.url.hostname }}/cdn/{{ image }}">

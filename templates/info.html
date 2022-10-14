@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="main-container">
+  <div class="header-container">
+    <h1 id="imginfo">{{ data["key"] }}.{{ data["ext"] }}</h1>
+    <a href="/" class="button">Back</a>
+  </div>
+  <img src="/cdn/{{ data['key'] }}.{{ data['ext'] }}" />
+  <hr />
+  <div class="soon">
+    <h1>Embed Builder</h1>
+    <h2>Coming Soon™</h2>
+  </div>
+  <hr />
+  <div class="container">
+    <a id="delete" class="button">
+      <i class="fa fa-trash"></i>
+    </a>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="/static/scripts/info.js"></script>
+{% endblock %}
