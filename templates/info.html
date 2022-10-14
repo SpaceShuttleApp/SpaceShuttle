@@ -4,8 +4,7 @@
 <div class="main-container">
   <div class="header-container">
     <h1 id="imginfo">{{ data["key"] }}.{{ data["ext"] }}</h1>
-    <a href="/dashboard" class="button">Back</a>
-    <a id="color-mode-toggle" class="button">🌙</a>
+    <a href="/" class="button">Back</a>
   </div>
   <img src="/cdn/{{ data['key'] }}.{{ data['ext'] }}" />
   <hr />
@@ -20,7 +19,6 @@
     </button>
   </div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
