@@ -8,7 +8,7 @@
   </div>
   <div class="container" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
     <button id="upload">
-      <img id="placeholder" src="/assets/upload.png" height="400" width="400" />
+      <img id="placeholder" src="/static/images/upload.png" height="400" width="400" />
       <input type="file" id="files" hidden accept="image/*" />
     </button>
     <div class="text">
@@ -23,5 +23,5 @@
 
 {% block scripts %}
 {{ super() }}
-<script src="/scripts/upload.js"></script>
+<script src="/static/scripts/upload.js"></script>
 {% endblock %}

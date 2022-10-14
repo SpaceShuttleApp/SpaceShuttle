@@ -1,5 +1,5 @@
 v: 1
-icon: ./assets/icon.png
+icon: ./static/images/icon.png
 micros:
 - name: spaceshuttle
   src: .

@@ -31,8 +31,13 @@ class NoCacheFileResponse(FileResponse):
 
 @app.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request):
-    items = await image_all()
-    return pages.TemplateResponse("dashboard.html", {"request": request, "items": items["data"]})
+    res = cdn.fetch()
+    items = res.items
+    while res.last:
+        res = cdn.fetch(last=res.last)
+        items += res.items
+
+    return pages.TemplateResponse("dashboard.html", {"request": request, "items": items})
 
 
 @app.get("/image", response_class=HTMLResponse)
@@ -60,31 +65,9 @@ async def image_cdn_embed(request: Request, image: str):
 
 # to deliver static files without caching
 # (Done by jnsougata... smh -- LemonPi314)
-@app.get("/assets/{name}")
-async def assets(name: str):
-    return NoCacheFileResponse(f"./assets/{name}")
-
-
-@app.get("/scripts/{name}")
-async def scripts(name: str):
-    return NoCacheFileResponse(f"./scripts/{name}")
-
-
-@app.get("/styles/{name}")
-async def styles(name: str):
-    return NoCacheFileResponse(f"./styles/{name}")
-
-
-@app.get("/all")
-async def image_all():
-    res = cdn.fetch()
-    items = res.items
-    while res.last:
-        res = cdn.fetch(last=res.last)
-        items += res.items
-
-    # Better to just return `items`. -- LemonPi314
-    return {"data": items}
+@app.get("/static/{path:path}")
+async def static(path: str):
+    return NoCacheFileResponse(f"./static/{path}")
 
 
 @app.patch("/update")
