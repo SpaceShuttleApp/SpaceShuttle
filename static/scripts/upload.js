@@ -14,6 +14,7 @@ function handleFile(file) {
     let data = { content: reader.result, filename: file.name };
     fetch(`/upload`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
