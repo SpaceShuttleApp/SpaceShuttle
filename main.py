@@ -4,12 +4,13 @@ from deta import Base, Drive
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, Response
-from fastapi.responses import Response
+# from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from models import Image
 
 app = FastAPI()
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 pages = Jinja2Templates(directory="templates")
 cdn = Base("images")
@@ -36,8 +37,10 @@ async def dashboard(request: Request):
     while res.last:
         res = cdn.fetch(last=res.last)
         items += res.items
-
-    return pages.TemplateResponse("dashboard.html", {"request": request, "items": items})
+    return pages.TemplateResponse(
+        "dashboard.html",
+        {"request": request, "items": items},
+    )
 
 
 @app.get("/image", response_class=HTMLResponse)
@@ -72,7 +75,10 @@ async def static(path: str):
 
 @app.patch("/update")
 async def image_update(id: str, embed_title: str, embed_colour_hex: str):
-    cdn.update({"embed": [{"title": embed_title, "colour": embed_colour_hex}]}, key=id)
+    cdn.update(
+        {"embed": [{"title": embed_title, "colour": embed_colour_hex}]},
+        key=id,
+    )
     return {"id": id}
 
 
