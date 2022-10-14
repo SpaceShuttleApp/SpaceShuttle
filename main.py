@@ -101,7 +101,7 @@ async def image_upload(request: Request, image: Image):
             "ext": extension,
             # Why non-US spelling? Might come as a suprise to users of the API.
             # Just the way it is, not trying to say US is superior. -- LemonPi314
-            # Don't take the our out of colour --SlumberDemon
+            # Don't take the ou out of colour --SlumberDemon
             "visibility": False,  # For future features
             "embed": [{"title": None, "colour": None}],  # For future features
         },
