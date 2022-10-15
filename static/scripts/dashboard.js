@@ -5,5 +5,6 @@ for (let button of shareButtons) {
     let imginfo = document.getElementById("imginfo");
     navigator.clipboard.writeText(`${window.location.origin}/cdn/${imginfo.innerHTML}`);
     alert("Link copied to clipboard.");
+    // Fix copy to clipboard only working once issue and add error alert when the image returns an error (404) saying that the image isn't visable (Public)
   });
 }
