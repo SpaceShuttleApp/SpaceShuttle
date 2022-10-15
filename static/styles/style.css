@@ -144,3 +144,8 @@ hr {
   padding: 4px 24px;
   text-align: center;
 }
+
+.info-container {
+  display: flex;
+  font-size: 20px;
+}

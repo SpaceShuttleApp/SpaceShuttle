@@ -1,19 +1,19 @@
 import base64
-
+from models import Image
 from deta import Base, Drive
 from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, Response
 
 # from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-
-from models import Image
 
 app = FastAPI()
+
 # app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 pages = Jinja2Templates(directory="templates")
+
 cdn = Base("images")
 images = Drive("images")
 
@@ -55,16 +55,6 @@ async def image_info(request: Request, id: str):
     return pages.TemplateResponse(
         "info.html",
         {"request": request, "data": info},
-    )
-
-
-# For future features
-@app.get("/embed/{image}")
-async def image_cdn_embed(request: Request, image: str):
-    embed = cdn.get(image.split(".")[0])
-    return pages.TemplateResponse(
-        "embed.html",
-        {"request": request, "embed": embed},
     )
 
 
@@ -122,6 +112,30 @@ async def image_delete(id: str):
 
 @app.get("/cdn/{image}")
 async def image_cdn(image: str):
+    img = images.get(image)
+    info = cdn.get(image.split(".")[0])
+    if info["visibility"] == True:
+        item = Response(
+            img.read(),
+            media_type=f"image/{image.split('.')[1]}",
+        )
+    else:
+        item = {"error": 404}
+    return item
+
+
+# For future features
+@app.get("/embed/{image}")
+async def image_cdn_embed(request: Request, image: str):
+    embed = cdn.get(image.split(".")[0])
+    return pages.TemplateResponse(
+        "embed.html",
+        {"request": request, "embed": embed},
+    )
+
+
+@app.get("/assets/{image}")
+async def image_assets(image: str):
     img = images.get(image)
     return Response(
         img.read(),

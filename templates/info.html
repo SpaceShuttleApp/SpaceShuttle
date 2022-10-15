@@ -6,16 +6,22 @@
     <h1 id="imginfo">{{ data["key"] }}.{{ data["ext"] }}</h1>
     <a href="/" class="button">Back</a>
   </div>
-  <img src="/cdn/{{ data['key'] }}.{{ data['ext'] }}" />
+  <img src="/assets/{{ data['key'] }}.{{ data['ext'] }}" />
   <hr />
   <div class="soon">
     <h1>Embed Builder</h1>
     <h2>Coming Soon™</h2>
   </div>
   <hr />
-  <div class="container">
+  <div class="info-container">
     <a id="delete" class="button">
       <i class="fa fa-trash"></i>
+    </a>
+    <a id="visibility" class="button" style="margin-left: 10px;">
+      <i class="fa fa-eye"></i>
+      PlaceHolder
+      <!-- Replace PlaceHolder with the current state of the image (Public/Private) -->
+      <!--Use /update?visibility=statehere (bool) -->
     </a>
   </div>
 </div>

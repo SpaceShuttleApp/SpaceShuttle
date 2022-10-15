@@ -10,6 +10,7 @@ Your personal image cloud
 
 - [Website](https://spaceshuttle.deta.dev/)
 - [Install](https://spaceshuttle.deta.dev/install)
+- [Guide](https://github.com/SpaceShuttleApp/Guide)
 
 ## Special Thanks
 - [jnsougata](https://github.com/jnsougata) for helping me with the image uploading and teaching me html layouts
