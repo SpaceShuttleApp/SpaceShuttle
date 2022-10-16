@@ -8,3 +8,22 @@ deleteButton.addEventListener("click", () => {
     window.location.href = "/";
   });
 });
+
+let visibilityToggle = document.getElementById("visibility");
+visibilityToggle.addEventListener("click", () => {
+    fetch(`/data/${imgId}`)
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.visibility == false) {
+            fetch(`/update/${imgId}?visibility=${true}`, { method: "PATCH" })
+            .then(() => {
+                visibilityToggle.innerHTML = `<i class="fa fa-eye"></i> Public`;
+            });
+        } else {
+            fetch(`/update/${imgId}?visibility=${false}`, { method: "PATCH" })
+            .then(() => {
+                visibilityToggle.innerHTML = `<i class="fa fa-eye"></i> Private`;
+            });
+        }
+    })
+});
