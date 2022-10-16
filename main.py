@@ -13,6 +13,8 @@ pages = Jinja2Templates(directory="templates")
 
 cdn = Base("images")
 images = Drive("images")
+
+
 class NoCacheFileResponse(FileResponse):
     def __init__(self, path: str, **kwargs):
         super().__init__(path, **kwargs)
@@ -44,6 +46,12 @@ async def image_info(request: Request, id: str):
         "info.html",
         {"request": request, "data": info},
     )
+
+
+@app.get("/data/{id}")
+async def image_data(id: str):
+    info = cdn.get(id)
+    return info
 
 
 # to deliver static files without caching
