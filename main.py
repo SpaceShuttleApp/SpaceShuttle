@@ -53,7 +53,7 @@ async def static(path: str):
     return NoCacheFileResponse(f"./static/{path}")
 
 
-@app.patch("/update")
+@app.patch("/update/{id}")
 async def image_update(
     id: str,
     embed_title: str = None,
@@ -90,7 +90,7 @@ async def image_upload(request: Request, image: Image):
     return {"image": url, "id": id}
 
 
-@app.delete("/delete")
+@app.delete("/delete/{id}")
 async def image_delete(id: str):
     data = cdn.get(id)
     images.delete(f"{data['key']}.{data['ext']}")
