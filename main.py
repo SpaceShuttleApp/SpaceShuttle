@@ -6,25 +6,13 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, Response
 
-# from fastapi.staticfiles import StaticFiles
-
 app = FastAPI()
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 pages = Jinja2Templates(directory="templates")
 
 cdn = Base("images")
 images = Drive("images")
-
-
-# class ContentResponse(Response):
-#     def __init__(self, path: str, **kwargs):
-#         with open(path, "rb") as f:
-#             content = f.read()
-#             super().__init__(content=content, **kwargs)
-
-
 class NoCacheFileResponse(FileResponse):
     def __init__(self, path: str, **kwargs):
         super().__init__(path, **kwargs)
