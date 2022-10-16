@@ -4,7 +4,7 @@ let imgId = imginfo.innerHTML.split(".")[0];
 let deleteButton = document.getElementById("delete");
 
 deleteButton.addEventListener("click", () => {
-  fetch(`/delete?id=${imgId}`, { method: "DELETE" }).then(() => {
+  fetch(`/delete/${imgId}`, { method: "DELETE" }).then(() => {
     window.location.href = "/";
   });
 });

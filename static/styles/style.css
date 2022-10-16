@@ -136,13 +136,13 @@ hr {
   margin: 20px;
 }
 
-.soon {
-  border-radius: 10px;
-  text-decoration: none;
-  background-color: var(--surface2);
-  border: 2px solid var(--surface3) !important;
-  padding: 4px 24px;
-  text-align: center;
+.embed-creator {
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: var(--surface2);
+    border: 2px solid var(--surface3) !important;
+    padding: 4px 24px;
+    text-align: center;
 }
 
 .info-container {
