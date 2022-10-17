@@ -45,11 +45,15 @@ eshareButton.addEventListener("click", () => {
         })
 });
 
+let intialColor = "#ff0000"
+let colourInput = document.getElementById("ecolour")
+colourInput.addEventListener("change", () => {
+    intialColor = colourInput.value
+})
 
 esaveButton.addEventListener("click", () => {
-    let colour = document.getElementById("ecolour")
     let title = document.getElementById("einput")
-    fetch(`/update/${imgId}?embed_title=${title.value}&embed_colour_hex=${colour.style.backgroundColor}`, {
+    fetch(`/update/${imgId}?embed_title=${title.value}&embed_colour_hex=${intialColor}`, {
         method: "PATCH"
     }).then(() => {
         alert("Embed saved")
