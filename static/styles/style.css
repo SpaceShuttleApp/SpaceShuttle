@@ -152,11 +152,13 @@ hr {
 
 .embed-left {
     float: left;
-    vertical-align: middle
+    align-items: left;
+    vertical-align: middle;
 }
 
 .embed-right {
   float: right;
+  align-items: right;
   vertical-align: middle;
 }
 
