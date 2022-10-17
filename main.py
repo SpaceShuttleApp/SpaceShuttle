@@ -88,8 +88,8 @@ async def image_upload(request: Request, image: Image):
             # Why non-US spelling? Might come as a suprise to users of the API.
             # Just the way it is, not trying to say US is superior. -- LemonPi314
             # Don't take the ou out of colour --SlumberDemon
-            "visibility": False,  # For future features
-            "embed": [{"title": None, "colour": None}],  # For future features
+            "visibility": False,
+            "embed": [{"title": None, "colour": None}],
         },
     )
     id = item["key"]
@@ -120,7 +120,6 @@ async def image_cdn(image: str):
     return item
 
 
-# For future features
 @app.get("/embed/{image}")
 async def image_cdn_embed(request: Request, image: str):
     embed = cdn.get(image.split(".")[0])
