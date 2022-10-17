@@ -2,7 +2,7 @@ let imginfo = document.getElementById("imginfo");
 let imgId = imginfo.innerHTML.split(".")[0];
 let deleteButton = document.getElementById("delete");
 let visibilityToggle = document.getElementById("visibility");
-let eshareButton = document.getElementsByClassName("eshare-button");
+let eshareButtons = document.getElementsByClassName("eshare-button");
 
 deleteButton.addEventListener("click", () => {
   fetch(`/delete/${imgId}`, { method: "DELETE" }).then(() => {
@@ -28,11 +28,9 @@ visibilityToggle.addEventListener("click", () => {
     })
 });
 
-
-
-eshareButton.addEventListener("click", () => {
-let url = `${window.location.origin}/embed/${button.id}`
-console.log(button.id)
+for (let button of eshareButtons) {
+  button.addEventListener("click", () => {
+    let url = `${window.location.origin}/cdn/${button.id}`
     fetch(`/data/${button.id.split(".")[0]}`)
     .then((res) => res.json())
     .then((data) => {
@@ -45,4 +43,5 @@ console.log(button.id)
         });
       }
     })
-});
+  });
+}
