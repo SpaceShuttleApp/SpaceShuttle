@@ -91,7 +91,7 @@ async def image_update(
     cdn.update(
         {
             "visibility": visibility,
-            "embed": [{"title": embed_title, "colour": embed_colour_hex}],
+            "embed": [{"title": embed_title, "colour": f"{embed_colour_hex}"}],
         },
         key=id,
     )
