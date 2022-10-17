@@ -30,7 +30,7 @@ visibilityToggle.addEventListener("click", () => {
 
 for (let button of eshareButtons) {
   button.addEventListener("click", () => {
-    let url = `${window.location.origin}/cdn/${button.id}`
+    let url = `${window.location.origin}/embed/${button.id}`
     fetch(`/data/${button.id.split(".")[0]}`)
     .then((res) => res.json())
     .then((data) => {
