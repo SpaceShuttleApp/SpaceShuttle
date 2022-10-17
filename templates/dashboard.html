@@ -1,32 +1,26 @@
-{% extends "base.html" %}
-
-{% block body %}
+{% extends "base.html" %} {% block body %}
 <div class="main-container">
-  <div class="header-container">
-    <h1>Your Images</h1>
-    <a href="image" class="button">
-      <i class="fa fa-plus"></i>
-    </a>
-  </div>
-  {% for item in items %}
-  <div class="card-container">
-    <div class="card-details">
-      <span id="imginfo">{{ item["key"] }}.{{ item["ext"] }}</span>
-      <div class="footer-container">
-        <a href="/info/{{ item['key'] }}" class="button">View</a>
-        <a id="{{ item['key'] }}.{{ item['ext'] }}" class="button share-button">
-          <i class="fa fa-share-alt"></i>
+    <div class="header-container">
+        <h1>Your Images</h1>
+        <a href="image" class="button">
+            <i class="fa fa-plus"></i>
         </a>
-      </div>
     </div>
-    <img class="card-image" src="/assets/{{ item['key'] }}.{{ item['ext'] }}" />
-  </div>
-  <hr />
-  {% endfor %}
+    {% for item in items %}
+    <div class="card-container">
+        <div class="card-details">
+            <span id="imginfo">{{ item["key"] }}.{{ item["ext"] }}</span>
+            <div class="footer-container">
+                <a href="/info/{{ item['key'] }}" class="button">View</a>
+                <a id="{{ item['key'] }}.{{ item['ext'] }}" class="button share-button">
+                    <i class="fa fa-share-alt"></i>
+                </a>
+            </div>
+        </div>
+        <img class="card-image" src="/assets/{{ item['key'] }}.{{ item['ext'] }}" />
+    </div>
+    <hr /> {% endfor %}
 </div>
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
+{% endblock %} {% block scripts %} {{ super() }}
 <script src="/static/scripts/dashboard.js"></script>
 {% endblock %}

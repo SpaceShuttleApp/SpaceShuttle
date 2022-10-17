@@ -9,20 +9,21 @@
   <img src="/assets/{{ data['key'] }}.{{ data['ext'] }}" />
   <hr />
   <div class="embed-creator">
-    <h1>Embed Builder</h1>
+    <!--- <h1>Embed Builder</h1> -->
     <!-- <input name="title"> -->
     <!-- <input id="colour" name="clr" type="color" height="50" width="50"> -->
-    <form class="embed-form">
+    <hr />
+    <form class="embed-form" id="eform">
       <div class="embed-left">
         <input id="einput" class="embed-input" type="text" maxlength="25" style="margin-bottom: 10px;">
         <hr />
-        <input id="ecolour" class="embed-colour" type="color" style="margin-bottom: 5px;">
+        <input id="ecolour" class="embed-colour" type="color" style="margin-bottom: 15px;" value="#000000">
       </div>
       <div class="embed-right">
         <div class="embed-creator" style="margin-bottom: 10px;">
-          <p>Embed Preview here</p>
+          <h2>Embed Builder </h2>
         </div>
-        <input type="submit" value="Save" id="esubmit" class="button">
+        <input type="submit" value="Save" id="{{ data['key'] }}.{{ data['ext'] }}" class="button esave-button">
         <a id="{{ data['key'] }}.{{ data['ext'] }}" class="button eshare-button" style="margin-left: 5px;">
           <i class=" fa fa-share-alt"></i>
         </a>

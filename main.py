@@ -39,6 +39,26 @@ async def image_upload_page(request: Request):
     return pages.TemplateResponse("upload.html", {"request": request})
 
 
+@app.post("/upload")
+async def image_upload(request: Request, image: Image):
+    extension = image.filename.split(".")[-1]
+    image_data = image.content.split(",")[1].encode("utf-8")
+    item = cdn.put(
+        {
+            "ext": extension,
+            # Why non-US spelling? Might come as a suprise to users of the API.
+            # Just the way it is, not trying to say US is superior. -- LemonPi314
+            # Don't take the ou out of colour --SlumberDemon
+            "visibility": False,
+            "embed": [{"title": None, "colour": None}],
+        },
+    )
+    id = item["key"]
+    images.put(f"{id}.{extension}", base64.b64decode(image_data))
+    url = f"{request.url.scheme}://{request.url.hostname}/cdn/{id}.{extension}"
+    return {"image": url, "id": id}
+
+
 @app.get("/info/{id}", response_class=HTMLResponse)
 async def image_info(request: Request, id: str):
     info = cdn.get(id)
@@ -76,26 +96,6 @@ async def image_update(
         key=id,
     )
     return {"id": id}
-
-
-@app.post("/upload")
-async def image_upload(request: Request, image: Image):
-    extension = image.filename.split(".")[-1]
-    image_data = image.content.split(",")[1].encode("utf-8")
-    item = cdn.put(
-        {
-            "ext": extension,
-            # Why non-US spelling? Might come as a suprise to users of the API.
-            # Just the way it is, not trying to say US is superior. -- LemonPi314
-            # Don't take the ou out of colour --SlumberDemon
-            "visibility": False,
-            "embed": [{"title": None, "colour": None}],
-        },
-    )
-    id = item["key"]
-    images.put(f"{id}.{extension}", base64.b64decode(image_data))
-    url = f"{request.url.scheme}://{request.url.hostname}/cdn/{id}.{extension}"
-    return {"image": url, "id": id}
 
 
 @app.delete("/delete/{id}")

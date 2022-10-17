@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" color-mode="light">
-  <head>
+
+<head>
     {% block head %}
     <title>SpaceShuttle</title>
     <meta charset="UTF-8" />
@@ -8,17 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/static/images/icon.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/static/styles/style.css" />
-    {% endblock %}
-  </head>
+    <link rel="stylesheet" href="/static/styles/style.css" /> {% endblock %}
+</head>
 
-  <body>
-    <button id="color-mode-toggle" class="button" style="align-self: flex-end;">☀️</button>
-    {% block body %}
-    {% endblock %}
-  </body>
+<body>
+    <button id="color-mode-toggle" class="button" style="align-self: flex-end;">☀️</button> {% block body %} {% endblock
+    %}
+</body>
 
-  {% block scripts %}
-  <script src="/static/scripts/script.js"></script>
-  {% endblock %}
+{% block scripts %}
+<script src="/static/scripts/script.js"></script>
+{% endblock %}
+
 </html>
