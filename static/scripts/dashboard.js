@@ -3,7 +3,7 @@ let shareButtons = document.getElementsByClassName("share-button");
 for (let button of shareButtons) {
   button.addEventListener("click", () => {
     let url = `${window.location.origin}/cdn/${button.id}`
-    fetch(`/data/${button.id}`)
+    fetch(`/data/${button.id.split(".")[0]}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.visibility == false) {
@@ -11,7 +11,7 @@ for (let button of shareButtons) {
       } else {
         navigator.clipboard.writeText(url)
         .then(() => {
-          alert("Image is public. Link copied to clipboard.");
+          alert("Link copied to clipboard.");
         });
       }
     })

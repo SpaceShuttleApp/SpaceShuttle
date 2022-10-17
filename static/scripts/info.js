@@ -1,7 +1,8 @@
 let imginfo = document.getElementById("imginfo");
 let imgId = imginfo.innerHTML.split(".")[0];
-// lazy to take image id from window.location.pathname
 let deleteButton = document.getElementById("delete");
+let visibilityToggle = document.getElementById("visibility");
+let eshareButton = document.getElementsByClassName("eshare-button");
 
 deleteButton.addEventListener("click", () => {
   fetch(`/delete/${imgId}`, { method: "DELETE" }).then(() => {
@@ -9,7 +10,6 @@ deleteButton.addEventListener("click", () => {
   });
 });
 
-let visibilityToggle = document.getElementById("visibility");
 visibilityToggle.addEventListener("click", () => {
     fetch(`/data/${imgId}`)
     .then((res) => res.json())
@@ -25,5 +25,24 @@ visibilityToggle.addEventListener("click", () => {
                 visibilityToggle.innerHTML = `<i class="fa fa-eye"></i> Private`;
             });
         }
+    })
+});
+
+
+
+eshareButton.addEventListener("click", () => {
+let url = `${window.location.origin}/embed/${button.id}`
+console.log(button.id)
+    fetch(`/data/${button.id.split(".")[0]}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.visibility == false) {
+        alert("Image is private. You can't share it.");
+      } else {
+        navigator.clipboard.writeText(url)
+        .then(() => {
+          alert("Link copied to clipboard.");
+        });
+      }
     })
 });
