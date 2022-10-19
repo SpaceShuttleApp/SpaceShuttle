@@ -45,10 +45,10 @@ async def image_upload(request: Request, image: Image):
     image_data = image.content.split(",")[1].encode("utf-8")
     item = cdn.put(
         {
-            "ext": extension,
             # Why non-US spelling? Might come as a suprise to users of the API.
             # Just the way it is, not trying to say US is superior. -- LemonPi314
             # Don't take the ou out of colour --SlumberDemon
+            "ext": extension,
             "visibility": False,
             "embed": [{"title": "", "colour": "#000000"}],
         },
