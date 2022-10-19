@@ -4,12 +4,15 @@ Your personal image cloud
 
 ### Dashboard
 
-![dashboard](https://sleep.deta.dev/cdn/space_shuttle_shdashboard.png)
+![dashboard](https://sleep.deta.dev/cdn/SCR-20221019-3zk.png)
+
+### Installation
+
+> [`https://spaceshuttle.deta.dev/install`](https://spaceshuttle.deta.dev/install)
 
 ### Links
 
 - [Website](https://spaceshuttle.deta.dev/)
-- [Install](https://spaceshuttle.deta.dev/install)
 - [Guide](https://github.com/SpaceShuttleApp/Guide)
 
 ## Special Thanks
