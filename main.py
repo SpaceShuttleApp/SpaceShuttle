@@ -50,7 +50,7 @@ async def image_upload(request: Request, image: Image):
             # Just the way it is, not trying to say US is superior. -- LemonPi314
             # Don't take the ou out of colour --SlumberDemon
             "visibility": False,
-            "embed": [{"title": None, "colour": None}],
+            "embed": [{"title": None, "colour": "#000000"}],
         },
     )
     id = item["key"]
@@ -95,7 +95,12 @@ async def image_update(
         },
         key=id,
     )
-    return {"id": id}
+    return {
+        "id": id,
+        "visibility": visibility,
+        "title": embed_title,
+        "colour": embed_colour_hex,
+    }
 
 
 @app.delete("/delete/{id}")
