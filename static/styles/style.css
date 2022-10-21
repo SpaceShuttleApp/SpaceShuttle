@@ -173,6 +173,11 @@ hr {
     border: 2px solid var(--surface3) !important;
 }
 
+.embed-input ::placeholder {
+    color: var(--element1);
+    font-style: italic;
+}
+
 .embed-colour {
     float: left;
     width: 200px;
