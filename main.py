@@ -88,6 +88,16 @@ async def image_update(
     embed_colour_hex: str = None,
     visibility: bool = None,
 ):
+    data = cdn.get(id)
+    embed_title = (
+        embed_title if not data["embed"][0]["title"] else data["embed"][0]["title"]
+    )
+    embed_colour_hex = (
+        embed_colour_hex
+        if not data["embed"][0]["colour"]
+        else data["embed"][0]["colour"]
+    )
+    visibility = visibility if not data["visibility"] else data["visibility"]
     cdn.update(
         {
             "visibility": visibility,
