@@ -50,7 +50,7 @@ async def image_upload(request: Request, image: Image):
             # Don't take the ou out of colour --SlumberDemon
             "ext": extension,
             "visibility": False,
-            "embed": [{"title": "", "colour": "#000000"}],
+            "embed": [{"title": "", "colour": "000000"}],
         },
     )
     id = item["key"]

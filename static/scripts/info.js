@@ -45,7 +45,7 @@ eshareButton.addEventListener("click", () => {
         })
 });
 
-let intialColor = "#ff0000"
+let intialColor = "000000"
 let colourInput = document.getElementById("ecolour")
 colourInput.addEventListener("change", () => {
     intialColor = colourInput.value
@@ -53,9 +53,10 @@ colourInput.addEventListener("change", () => {
 
 esaveButton.addEventListener("click", () => {
     let title = document.getElementById("einput")
-    fetch(`/update/${imgId}?embed_title=${title.value}&embed_colour_hex=${intialColor}`, {
+    fetch(`/update/${imgId}?embed_title=${title.value}&embed_colour_hex=${intialColor.replace("#", " ")}`, {
         method: "PATCH"
     }).then(() => {
         alert("Embed saved")
+        alert("Note colour will be fixed soon!")
     })
 });
