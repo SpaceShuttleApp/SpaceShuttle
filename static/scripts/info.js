@@ -2,7 +2,6 @@ let imginfo = document.getElementById("imginfo");
 let imgId = imginfo.innerHTML.split(".")[0];
 let deleteButton = document.getElementById("delete");
 let visibilityToggle = document.getElementById("visibility");
-let eshareButton = document.getElementsByClassName("eshare-button")[0];
 let esaveButton = document.getElementsByClassName("esave-button")[0];
 
 deleteButton.addEventListener("click", () => {
@@ -29,22 +28,6 @@ visibilityToggle.addEventListener("click", () => {
         })
 });
 
-eshareButton.addEventListener("click", () => {
-    let url = `${window.location.origin}/embed/${eshareButton.id}`
-    fetch(`/data/${eshareButton.id.split(".")[0]}`)
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.visibility == false) {
-                alert("Image is private. You can't share it.");
-            } else {
-                navigator.clipboard.writeText(url)
-                    .then(() => {
-                        alert("Link copied to clipboard.");
-                    });
-            }
-        })
-});
-
 let intialColor = "000000"
 let colourInput = document.getElementById("ecolour")
 colourInput.addEventListener("change", () => {
@@ -53,10 +36,13 @@ colourInput.addEventListener("change", () => {
 
 esaveButton.addEventListener("click", () => {
     let title = document.getElementById("einput")
-    fetch(`/update/${imgId}?embed_title=${title.value}&embed_colour_hex=${intialColor.replace("#", " ")}`, {
+    let url = `${window.location.origin}/embed/${esaveButton.id}`
+    fetch(`/update/${imgId}?visibility=${true}&embed_title=${title.value}&embed_colour_hex=${intialColor.replace("#", " ")}`, {
         method: "PATCH"
     }).then(() => {
-        alert("Embed saved")
-        alert("Note colour will be fixed soon!")
+        navigator.clipboard.writeText(url)
+        .then(() => {
+            alert("Embed saved and link copied to clipboard.");
+        });
     })
 });
