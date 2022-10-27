@@ -2,7 +2,7 @@
 title: "SpaceShuttle"
 tagline: "Your personal image cloud"
 theme_color: "#FF13AC"
-git: "https://github.com/SpaceShuttleApp"
+git: "https://github.com/SpaceShuttleApp/SpaceShuttle"
 homepage: "https://spaceshuttle.deta.dev"
 ---
 
