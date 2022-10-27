@@ -8,7 +8,7 @@ Your personal image cloud
 
 ### Installation
 
-> [`https://spaceshuttle.deta.dev/install`](https://spaceshuttle.deta.dev/install)
+> [`Space Discovery`](https://alpha.deta.space/discovery/@sofa/spaceshuttle-sbm)
 
 ### Links
 
