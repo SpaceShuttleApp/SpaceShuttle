@@ -1,6 +1,6 @@
 # SpaceShuttle
-Your personal image cloud
 
+Your personal image cloud
 
 ### Dashboard
 
@@ -8,7 +8,7 @@ Your personal image cloud
 
 ### Installation
 
-> [`Space Discovery`](https://alpha.deta.space/discovery/@sofa/spaceshuttle-sbm)
+<a href="https://alpha.deta.space/discovery/@sofa/spaceshuttle-sbm"><img src="https://deta.space/buttons/dark.svg" width=250></a>
 
 ### Links
 
@@ -16,6 +16,7 @@ Your personal image cloud
 - [Guide](https://github.com/SpaceShuttleApp/Guide)
 
 ## Special Thanks
+
 - [jnsougata](https://github.com/jnsougata) for helping me with the image uploading and teaching me html layouts
 - [LemonPi](https://github.com/LemonPi314) for creating the dark/light mode toggle and teaching me html ui's
 - [Xeust](https://github.com/xeust) for giving feedback and helping me setup deta space

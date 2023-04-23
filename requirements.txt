@@ -1,4 +1,5 @@
 python-multipart
+uvicorn
 fastapi
 jinja2
 deta
